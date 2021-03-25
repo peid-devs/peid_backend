@@ -30,4 +30,4 @@ Route::get('dni/{dni_number_pet}','App\Http\Controllers\DniController@show');
 
 
 Route::get('certipeid/{cellphone_owner}','App\Http\Controllers\CertipeidController@show');
-Route::post('certipeid/create', 'App\Http\Controllers\CertipeidController@store');
+Route::post('certipeid', 'App\Http\Controllers\CertipeidController@store');
