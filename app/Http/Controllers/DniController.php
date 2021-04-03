@@ -49,8 +49,8 @@ class DniController extends Controller
         $date_issue =date('Y-m-d',strtotime(date('Y-m-d')."+ 14 days"));
         $date_expiry=date('Y-m-d',strtotime(date('Y-m-d')."+ 4 years"));
         $phone_number = $request->country_code.$request->cellphone_owner;
-       $path = storage_path() . '/app/public/images/dni/' . $img_pet;
-       $path2 = storage_path() . '/app/public/images/dni/' . $img_pet2 ;
+       $path = resource_path() . '/assets/images/dni/' . $img_pet;
+       $path2 = resource_path() . '/assets/images/dni/' . $img_pet2 ;
        Image::make($request->file('url_image_pet'))
            ->resize(150, 150)
            ->save($path);
@@ -62,7 +62,7 @@ class DniController extends Controller
             'dni_type_pet' => $request->dni_type_pet,
             'lastname_pet' => $request->lastname_pet,
             'name_pet' => $request->name_pet,
-            'url_image_pet' => '/app/public/images/dni/'.$img_pet,
+            'url_image_pet' => '/assets/images/dni/'.$img_pet,
             'birthday_pet' => $request->birthday_pet,
             'date_enrollment_pet' => $date_now,
             'date_issue_pet' => $date_issue,
@@ -82,7 +82,7 @@ class DniController extends Controller
             'subtype_certipeid' => 'inscription',
             'lastname_pet' => $request->lastname_pet,
             'name_pet' => $request->name_pet,
-            'url_image_pet' => '/app/public/images/dni/'.$img_pet,
+            'url_image_pet' => '/assets/images/dni/'.$img_pet,
             'birthday_pet' => $request->birthday_pet,
             'gender_pet' =>  $request->gender_pet,
             'specie_type_pet' => $request->specie_type_pet,
@@ -124,15 +124,13 @@ class DniController extends Controller
             $array_numbers = ['0','1','2','3','4','5','6','7','8','9'];
             $result = array_intersect($array_dni,$array_numbers);
             $name_order = 'PER'.$dni[0]->dni_number_pet;
-          //  $a = storage_path() . $dni[0]->url_image_pet;
-           // return $a;
             $image = new SimpleImage();
             $image
-                ->fromFile(storage_path() . '/app/public/images/generate/dni/background3.png')
+                ->fromFile(resource_path() . '/assets/images/generate/dni/background3.png')
                 ->autoOrient()
                 ->resize(630,379)
                 ->text($name_order.' < < < < < < < < < < < < < < < < < <', [
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 18 ,
                         'color' => '#000000',
                         'anchor' => 'top left',
@@ -142,7 +140,7 @@ class DniController extends Controller
                 )
                 ->text(strtoupper($dni[0]->lastname_pet).' < < '.
                     strtoupper($dni[0]->name_pet).' < < < < < < < < ', [
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 18 ,
                         'color' => '#000000',
                         'anchor' => 'top left',
@@ -151,7 +149,7 @@ class DniController extends Controller
                     ]
                 )
                 ->text('REPUBLICA DEL PERÚ', [
-                        'fontFile' => storage_path() . '/app/public/fonts/montserratbold.ttf',
+                        'fontFile' => resource_path() . '/fonts/montserratbold.ttf',
                         'size' => 22 ,
                         'color' => '#000000',
                         'anchor' => 'top left',
@@ -161,7 +159,7 @@ class DniController extends Controller
                 )
                 ///< Dni number
                 ->text($dni[0]->dni_number_pet.' - 1', [
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 18 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -169,9 +167,9 @@ class DniController extends Controller
                         'yOffset' => 42,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/field_front.png', 'top left',1,265,95) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/field_front.png', 'top left',1,265,95) ///< dni field
                 ->text($dni[0]->lastname_pet, [  ///< dni field input - lastname
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,
                         'color' => '#000000',
                         'anchor' => 'top left',
@@ -179,9 +177,9 @@ class DniController extends Controller
                         'yOffset' => 105,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/field_front.png', 'top left',1,265,145) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/field_front.png', 'top left',1,265,145) ///< dni field
                 ->text($dni[0]->name_pet, [  ///< dni field input - name
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',      ///< text-font
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -189,9 +187,9 @@ class DniController extends Controller
                         'yOffset' => 155,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/mfield_front.png', 'top left',1,265,195) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/mfield_front.png', 'top left',1,265,195) ///< dni field
                 ->text($dni[0]->birthday_pet, [  ///< dni field input - date
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',      ///< text-font
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -199,9 +197,9 @@ class DniController extends Controller
                         'yOffset' => 205,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/nfield_front.png', 'top left',1,390,195) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/nfield_front.png', 'top left',1,390,195) ///< dni field
                 ->text(ucwords($dni[0]->gender_pet), [  ///< dni field input - date
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -209,9 +207,9 @@ class DniController extends Controller
                         'yOffset' => 205,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/mfield_front.png', 'top left',1,265,245) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/mfield_front.png', 'top left',1,265,245) ///< dni field
                 ->text(ucwords($dni[0]->specie_type_pet), [  // type of pet
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -219,9 +217,9 @@ class DniController extends Controller
                         'yOffset' => 255,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/nfield_front.png', 'top left',1,390,245) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/nfield_front.png', 'top left',1,390,245) ///< dni field
                 ->text(ucwords($dni[0]->breed_pet), [  // breed of dog
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -231,7 +229,7 @@ class DniController extends Controller
                 )
                 ///< Enrollment date
                 ->text($dni[0]->date_enrollment_pet, [  // first date
-                        'fontFile' => storage_path() . '/app/public/fonts/quickbold.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickbold.ttf',
                         'size' => 10 ,               ///< text-size
                         'color' => '#FFFFFF',        ///< text-color
                         'anchor' => 'top left',
@@ -241,7 +239,7 @@ class DniController extends Controller
                 )
                 ///< Date of issue
                 ->text($dni[0]->date_issue_pet, [  // first date
-                        'fontFile' => storage_path() . '/app/public/fonts/quickbold.ttf',
+                        'fontFile' => resource_path() . '/fonts/quickbold.ttf',
                         'size' => 10 ,               ///< text-size
                         'color' => '#FFFFFF',        ///< text-color
                         'anchor' => 'top left',
@@ -251,7 +249,7 @@ class DniController extends Controller
                 )
                 ///< Date of expiry
                 ->text($dni[0]->date_expiry_pet, [  ///< first date
-                        'fontFile' => storage_path() . '/app/public/fonts/quickbold.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickbold.ttf',
                         'size' => 10 ,               ///< text-size
                         'color' => '#FFFFFF',        ///< text-color
                         'anchor' => 'top left',
@@ -259,25 +257,23 @@ class DniController extends Controller
                         'yOffset' => 198,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/dni/panel2.png', 'top left',1,500,75) ///< dates panel
-                ->overlay(storage_path() . '/app/public/images/dni/'.$dni[0]->dni_number_pet. '_1.jpg', 'top left',1,525,235) ///< dni image bottom
-                ->overlay(storage_path() . '/app/public/images/dni/'.$dni[0]->dni_number_pet. '.jpg', 'top left',1,88,115)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[0] .'.png', 'top left',1,40,115)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[1] .'.png', 'top left',1,40,135)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[2] .'.png', 'top left',1,40,155)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[3] .'.png', 'top left',1,40,175)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[4] .'.png', 'top left',1,40,195)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[5] .'.png', 'top left',1,40,215)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[6] .'.png', 'top left',1,40,235)
-                ->overlay(storage_path() . '/app/public/images/generate/dni/number/' . $result[7] .'.png', 'top left',1,40,255)
+                ->overlay(resource_path() . '/assets/images/generate/dni/panel2.png', 'top left',1,500,75) ///< dates panel
+                ->overlay(resource_path() . '/assets/images/dni/'.$dni[0]->dni_number_pet. '_1.jpg', 'top left',1,525,235) ///< dni image bottom
+                ->overlay(resource_path() . '/assets/images/dni/'.$dni[0]->dni_number_pet. '.jpg', 'top left',1,88,115)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[0] .'.png', 'top left',1,40,115)
+                ->overlay(resource_path(). '/assets/images/generate/dni/number/' . $result[1] .'.png', 'top left',1,40,135)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[2] .'.png', 'top left',1,40,155)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[3] .'.png', 'top left',1,40,175)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[4] .'.png', 'top left',1,40,195)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[5] .'.png', 'top left',1,40,215)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[6] .'.png', 'top left',1,40,235)
+                ->overlay(resource_path() . '/assets/images/generate/dni/number/' . $result[7] .'.png', 'top left',1,40,255)
                 ->toScreen();
            //-> toDownload('dni_front_'.$dni[0]->dni_number_pet.'.png', null, 100);
         } catch(Exception $err) {
             echo $err->getMessage();
         }
-
-
-       // return $dni[0]->name_pet; https://www.php.net/manual/es/function.imagescale.php
+       // return $dni[0]->name_pet;
     }
 
     public function getDniBack($dni_number) {
@@ -286,7 +282,7 @@ class DniController extends Controller
             return response()->json(['Message' => 'Dni not found'], 404);
         }
 
-        $path_qr = storage_path() . '/app/public/images/generate/dni/qr/'.$dni[0]->dni_number_pet.'.jpg';
+        $path_qr = resource_path() . '/assets/images/generate/dni/qr/'.$dni[0]->dni_number_pet.'.jpg';
 
         if(@getimagesize($path_qr) == 0) {
          $this->createQrCode($dni[0]->dni_number_pet);
@@ -296,12 +292,12 @@ class DniController extends Controller
             $image = new SimpleImage();
             $name_order = 'PER'.$dni[0]->dni_number_pet;
             $image
-                ->fromFile(storage_path() . '/app/public/images/generate/dni/background3.png')
+                ->fromFile(resource_path() . '/assets/images/generate/dni/background3.png')
                 ->autoOrient()                           ///<
                 ->autoOrient()                           ///< adjust orientation
                 ->resize(630, 379)
                 ->text('REPUBLICA DEL PERÚ', [
-                        'fontFile' => storage_path() . '/app/public/fonts/montserratbold.ttf',
+                        'fontFile' => resource_path() . '/fonts/montserratbold.ttf',
                         'size' => 22 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -309,9 +305,9 @@ class DniController extends Controller
                         'yOffset' => 38,
                     ]
                 )
-                ->overlay(storage_path().'/app/public/images/generate/dni/field_back.png', 'top left',1,85,95) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/field_back.png', 'top left',1,85,95) ///< dni field
                 ->text(ucwords($dni[0]->lastname_owner), [  // type of pet
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -319,9 +315,9 @@ class DniController extends Controller
                         'yOffset' => 105,
                     ]
                 )
-                ->overlay(storage_path().'/app/public/images/generate/dni/field_back.png', 'top left',1,85,145) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/field_back.png', 'top left',1,85,145) ///< dni field
                 ->text(ucwords($dni[0]->name_owner), [  // type of pet
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -329,9 +325,9 @@ class DniController extends Controller
                         'yOffset' => 155,
                     ]
                 )
-                ->overlay(storage_path().'/app/public/images/generate/dni/field_back.png', 'top left',1,85,195) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/field_back.png', 'top left',1,85,195) ///< dni field
                 ->text(ucwords($dni[0]->cellphone_owner), [  // type of pet
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -339,9 +335,9 @@ class DniController extends Controller
                         'yOffset' => 205,
                     ]
                 )
-                ->overlay(storage_path().'/app/public/images/generate/dni/field_back.png', 'top left',1,85,245) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/field_back.png', 'top left',1,85,245) ///< dni field
                 ->text($dni[0]->email_owner, [  // type of pet
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 16 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -349,9 +345,9 @@ class DniController extends Controller
                         'yOffset' => 255,
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/dni/'.$dni[0]->dni_number_pet. '_1.jpg', 'top left',1,85,300) ///< dni field
+                ->overlay(resource_path() . '/assets/images/dni/'.$dni[0]->dni_number_pet. '_1.jpg', 'top left',1,85,300) ///< dni field
                 ->text($name_order.' < < < < < < < < < < < < < < < < < <', [
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 18 ,
                         'color' => '#000000',
                         'anchor' => 'top left',
@@ -361,7 +357,7 @@ class DniController extends Controller
                 )
                 ->text(strtoupper($dni[0]->lastname_pet).' < < '.
                     strtoupper($dni[0]->name_pet).' < < < < < < < < ', [  // first field
-                        'fontFile' => storage_path() . '/app/public/fonts/quickmedium.ttf',
+                        'fontFile' =>  resource_path() . '/fonts/quickmedium.ttf',
                         'size' => 18 ,               ///< text-size
                         'color' => '#000000',        ///< text-color
                         'anchor' => 'top left',
@@ -369,7 +365,7 @@ class DniController extends Controller
                         'yOffset' => 338,
                     ]
                 )
-                ->overlay(storage_path().'/app/public/images/generate/dni/qr/'.$dni[0]->dni_number_pet.'.jpg', 'top left',1,365,80) ///< dni field
+                ->overlay(resource_path() . '/assets/images/generate/dni/qr/'.$dni[0]->dni_number_pet.'.jpg', 'top left',1,365,80) ///< dni field
                 ->toScreen();
         } catch(Exception $err) {
             echo $err->getMessage();
@@ -422,7 +418,7 @@ class DniController extends Controller
     }
 
     public function createQrCode($dni_number) {
-        $pet_qr_code = storage_path() . '/app/public/images/generate/dni/qr/'.$dni_number.'.jpg';
+        $pet_qr_code = resource_path() . '/assets/images/generate/dni/qr/'.$dni_number.'.jpg';
         $base_path_local = 'http://127.0.0.1:8000/api/certipeid/'.$dni_number;
         $base_path_server = 'https://pet-id.tk/api/dni/'.$dni_number;
         copy("https://api.qrserver.com/v1/create-qr-code/?size=214x214&data=$base_path_server", $pet_qr_code);

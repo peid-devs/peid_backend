@@ -57,7 +57,7 @@ class CertipeidController extends Controller {
         $phone_number = $request->country_code.$request->cellphone_owner;
         $lower_name = Str::lower($request->name_pet);
         $img_pet = $request->country_code.$request->cellphone_owner.'_'.$lower_name.'.jpg';
-        $path = storage_path() . '/app/public/images/certipeid/' . $img_pet;
+        $path = resource_path() . '/assets/images/certipeid/' . $img_pet;
         Image::make($request->file('url_image_pet'))
             ->resize(3368, 2380)
             ->save($path);
@@ -66,7 +66,7 @@ class CertipeidController extends Controller {
             'subtype_certipeid' => $request->subtype_certipeid,
             'lastname_pet' => $request->lastname_pet,
             'name_pet' => $request->name_pet,
-            'url_image_pet' => 'storage/images/certipeid/'.$img_pet,
+            'url_image_pet' => '/assets/images/certipeid/'.$img_pet,
             'birthday_pet' => $request->birthday_pet,
             'gender_pet' =>  $request->gender_pet,
             'specie_type_pet' => $request->specie_type_pet,
@@ -75,7 +75,12 @@ class CertipeidController extends Controller {
             'name_owner' => $request->name_owner,
             'country_code' => $request->country_code,
             'cellphone_owner' =>  $phone_number,
-            'email_owner' => $request->email_owner
+            'email_owner' => $request->email_owner,
+            'dni_number_pet' => null,
+            'dni_type_pet' => null,
+            'date_enrollment_pet' => null,
+            'date_issue_pet' => null,
+            'date_expiry_pet' => null
         ]);
         return response()->json($certipeid,200);
     }
@@ -105,7 +110,7 @@ class CertipeidController extends Controller {
             return response()->json(['Message' => 'Not found'],404);
         }
         try {
-            $path_qr = storage_path() . '/app/public/images/generate/certipeid/qr/'.$certipeid[0]->dni_number_pet.'.jpg';
+            $path_qr = resource_path() . '/assets/images/generate/certipeid/qr/'.$certipeid[0]->dni_number_pet.'.jpg';
 
             if(@getimagesize($path_qr) == 0) {
                 $this->createQrCode($certipeid[0]->dni_number_pet);
@@ -113,11 +118,11 @@ class CertipeidController extends Controller {
 
             $image = new SimpleImage();
             $image
-                ->fromFile(storage_path() . '/app/public/images/generate/certipeid/background.png')
+                ->fromFile(resource_path() . '/assets/images/generate/certipeid/background.png')
                 ->autoOrient()
                 ->border('black', 5)
                 ->text($certipeid[0]->name_pet.' '.$certipeid[0]->lastname_pet, [
-                        'fontFile' => storage_path() . '/app/public/fonts/robottoregular.ttf',
+                        'fontFile' => resource_path() . '/fonts/robottoregular.ttf',
                         'size' => 43.60 ,               ///< text-size
                         'color' => '#F15B5B',        ///< text-color
                         'anchor' => 'top',
@@ -126,12 +131,12 @@ class CertipeidController extends Controller {
                         'shadow' => ['x' => '0', 'y' => '15', 'color' => '#ececec' ]
                     ]
                 )
-                ->overlay(storage_path() . '/app/public/images/generate/certipeid/phrase.png', 'left',1,385,25,false) ///< phrase certipeid
-                ->overlay(storage_path() . '/app/public/images/dni/'.$certipeid[0]->dni_number_pet .'.jpg', 'left',1,167,6) ///< principal image
-                ->overlay(storage_path() . '/app/public/images/generate/certipeid/brand.png', 'top center',1,0,94.35) ///< brand image
-                ->overlay(storage_path() . '/app/public/images/generate/certipeid/mark2.png', 'top left',1,175,436.35) ///< logo secundary
-                ->overlay(storage_path() . '/app/public/images/generate/certipeid/peidsign.png', 'left',1,333,189.35) ///< sign certipeid
-                ->overlay(storage_path().'/app/public/images/generate/certipeid/qr/'.$certipeid[0]->dni_number_pet.'.jpg', 'top left',1,605,450.35) ///< watermark image
+                ->overlay(resource_path() . '/assets/images/generate/certipeid/phrase.png', 'left',1,385,25,false) ///< phrase certipeid
+                ->overlay(resource_path() . '/assets/images/dni/'.$certipeid[0]->dni_number_pet .'.jpg', 'left',1,167,6) ///< principal image
+                ->overlay(resource_path() . '/assets/images/generate/certipeid/brand.png', 'top center',1,0,94.35) ///< brand image
+                ->overlay(resource_path() . '/assets/images/generate/certipeid/mark2.png', 'top left',1,175,436.35) ///< logo secundary
+                ->overlay(resource_path() . '/assets/images/generate/certipeid/peidsign.png', 'left',1,333,189.35) ///< sign certipeid
+                ->overlay(resource_path() . '/assets/images/generate/certipeid/qr/'.$certipeid[0]->dni_number_pet.'.jpg', 'top left',1,605,450.35) ///< watermark image
                 ->toScreen();
         } catch(Exception $err) {
             echo $err->getMessage();
@@ -163,7 +168,7 @@ class CertipeidController extends Controller {
 
     // @to_do = check this function and solve this problem
     public function createQrCode($dni_number) {
-        $pet_qr_code = storage_path() . '/app/public/images/generate/certipeid/qr/'.$dni_number.'.jpg';
+        $pet_qr_code = resource_path() . '/assets/images/generate/certipeid/qr/'.$dni_number.'.jpg';
         $params = [
          'scanned' => [
             'kind' => 'certipeid',

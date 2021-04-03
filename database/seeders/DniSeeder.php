@@ -15,7 +15,7 @@ class DniSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['dni_number_pet' => '78206913','dni_type_pet' => 'free', 'lastname_pet' => 'Hernandez', 'name_pet' => 'Lucas', 'url_image_pet' => '/app/public/images/dni/78206913.jpg', 'birthday_pet' => '2020-03-18','date_enrollment_pet' => '2021-03-21','date_issue_pet' => '2021-03-25','date_expiry_pet' => '2025-03-21', 'gender_pet' => 'Machito', 'specie_type_pet' => 'gato', 'breed_pet' => 'Ragdoll', 'lastname_owner' => 'Hernandez Florez', 'name_owner' => 'Miguel Juan','country_code' => '+51', 'cellphone_owner' => '+51985400951'  ,'email_owner' => 'hernandezf@gmail.com']
+            ['dni_number_pet' => '78206913','dni_type_pet' => 'free', 'lastname_pet' => 'Hernandez', 'name_pet' => 'Lucas', 'url_image_pet' => '/assets/images/generate/dni/78206913.jpg', 'birthday_pet' => '2020-03-18','date_enrollment_pet' => '2021-03-21','date_issue_pet' => '2021-03-25','date_expiry_pet' => '2025-03-21', 'gender_pet' => 'Machito', 'specie_type_pet' => 'gato', 'breed_pet' => 'Ragdoll', 'lastname_owner' => 'Hernandez Florez', 'name_owner' => 'Miguel Juan','country_code' => '+51', 'cellphone_owner' => '+51985400951'  ,'email_owner' => 'hernandezf@gmail.com']
 
         ];
         foreach ($data as $value) {
